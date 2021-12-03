@@ -11,7 +11,7 @@ connectDb();
 
 //TODO: Add appropriate schemas/models to the models folder.
 //! NOTE - you can modify the user.js schema, but make sure to adjust validation accordingly!
-//TODO: Add routes to the routes folder. By convention, there should be a file for each schema/model
+//TODO: Add routes to the routes folder. By convention, there should be a file for each schema/model --------- DONE
 //! NOTE - for each route file, don't forget to import your router into index.js and add a new app.use statement below!
 
 app.use(cors());
