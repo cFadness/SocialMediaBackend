@@ -13,7 +13,7 @@ router.get('/:userId', async (req, res) => {
 });
 
 //GET All posts
-router.get('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const posts = await Post.find();
         return res.send(posts);
