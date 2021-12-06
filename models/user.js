@@ -26,7 +26,8 @@ userSchema.methods.generateAuthToken = function () {
   return jwt.sign(
     {
       _id: this._id,
-      name: this.name,
+      firstName: this.firstName,
+      lastName: this.lastName,
       email: this.email,
       isAdmin: this.isAdmin,
     },
