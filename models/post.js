@@ -5,15 +5,16 @@ const postSchema = new mongoose.Schema(
     {
         userId: {type: String, required: true},
         text: { type: String, required: true},
-        likes: {type: Number, default: 0},
-        dislikes: {type: Number, default: 0},
+        likes: { type: Number, default: 0 },
+        dislikes: { type: Number, default: 0 },
+        dateCreated: { type: Date, default: Date()}
     }
 )
 
 function validatePost(post) {
     const schema = Joi.object({
-        text: Joi.string().required(),
-        userId: Joi.string().required()
+        userId: Joi.string().required(),
+        text: Joi.string().required()
     });
     return schema.validate(post);
 }
