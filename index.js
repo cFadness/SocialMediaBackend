@@ -18,6 +18,7 @@ connectDb();
 app.use(cors());
 app.use(express.json());
 app.use(`/api/users`, usersRouter);
+app.use(`/api/posts`, postsRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
