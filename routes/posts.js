@@ -12,91 +12,59 @@ router.get('/:userId', async (req, res) => {
     }
 });
 
-//POST Comment Endpoint
+//GET All posts
+router.get('/posts', async (req, res) => {
+    try {
+        const posts = await Post.find();
+        return res.send(posts);
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
+
+//Post a post
 router.post('/', async (req, res) => {
     try {
-        const { error } = validateComment(req.body);
+        const { error } = validatePost(req.body);
         if (error)
             return res.status(400).send(error);
 
-        const comment = new Comment({
-            videoId: req.body.videoId,
+        const post = new Post({
+            userId: req.body.userId,
             text: req.body.text
         });
 
-        await comment.save();
+        await post.save();
 
-        return res.send(comment);
+        return res.send(post);
 
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }
 });
 
-//PUT Comment Endpoint
-router.put('/:id', async (req, res) => {
-    try {
+// //POST Replies Endpoint
+// router.post('/:id/replies', async (req, res) => {
+//     try {
+//         const comment = await Comment.findById(req.params.id);
 
-        let bodyKeys = Object.getOwnPropertyNames(req.body);
-        let schemaKeys = Object.getOwnPropertyNames(Comment.schema.obj);
-
-        console.log(schemaKeys);
-        console.log(bodyKeys)
-
-        let includesAll = true;
-        bodyKeys.map((someKey) => {
-            if(!schemaKeys.includes(someKey)){
-                includesAll = false;
-            }
-        });
-
-        if(!includesAll)
-            return res.status(400).send('Improper key in body.');
-
-
-        const comment = await Comment.findByIdAndUpdate(req.params.id, 
-            {
-                ...req.body
-            },
-            { new: true}
-            );
-
-            const errors = comment.validateSync();
-            console.log(errors);
-            if (!comment)
-                return res.status(400).send(`The comment with id "${req.params.id}"
-                does not exist.`);
-
-            await comment.save();
-
-            return res.send(comment);
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`);
-    }
-});
-
-//POST Replies Endpoint
-router.post('/:id/replies', async (req, res) => {
-    try {
-        const comment = await Comment.findById(req.params.id);
-
-        const { error } = validateReply(req.body);
-        if (error)
-            return res.status(400).send(error);
+//         const { error } = validateReply(req.body);
+//         if (error)
+//             return res.status(400).send(error);
             
-        const reply = new Reply({
-            text: req.body.text
-        });
+//         const reply = new Reply({
+//             text: req.body.text
+//         });
 
-        comment.replies.push(reply);
+//         comment.replies.push(reply);
 
-        await comment.save();
+//         await comment.save();
 
-        return res.send(comment.replies);
+//         return res.send(comment.replies);
 
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`);
-    }
-});
+//     } catch (ex) {
+//         return res.status(500).send(`Internal Server Error: ${ex}`);
+//     }
+// });
 
 module.exports = router;

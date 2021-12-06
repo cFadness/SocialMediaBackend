@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 const Joi = require("joi");
 const jwt = require("jsonwebtoken");
 const config = require("config");
-const {Post} = require("./post")
+const {postSchema} = require("./post");
 
 const userSchema = mongoose.Schema({
   firstName: { type: String, required: true, minLength: 1, maxLength: 50 },
   lastName: { type: String, required: true, minLength: 1, maxLength: 50 },
-  posts: {type: [Post], default: [] },
+  posts: {type: [postSchema], default: [] },
   about: { type: String, default: "" },
-  friends: { type: [userSchema], default: [] },
+  friends: { type: Array, default: [] },
   photos: { type: Array, default: [] },
   email: {
     type: String,
