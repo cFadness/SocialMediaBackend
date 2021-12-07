@@ -99,17 +99,15 @@ router.delete("/:userId", [auth, admin], async (req, res) => {
 router.put('/:userId', async (req, res) => {
   try {
       const user = await User.findByIdAndUpdate(req.params.userId, 
-          {
-            ...req.body
-          },
+        {
+          ...req.body
+        },
           { new: true }
           );
 
           if (!user)
-              return res.status(400).send(`The post with userId "${req.params.userId}"
+              return res.status(400).send(`The userId "${req.params.userId}"
               does not exist.`);
-
-          await user.save();
 
           return res.send(user);
   } catch (ex) {
