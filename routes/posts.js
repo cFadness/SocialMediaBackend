@@ -1,21 +1,15 @@
-const { Post, validatePost, validateLike } = require('../models/post');
+const { Post, validateLike } = require('../models/post');
+const auth = require("../middleware/auth");
 const express = require('express');
+const { User } = require('../models/user');
 const router = express.Router();
 
 //GET Posts from user
-router.get('/:userId', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try {
-        const posts = await Post.find({userId: req.params.userId});
-        return res.send(posts);
-    } catch (ex) {
-        return res.status(500).send(`Internal Server Error: ${ex}`);
-    }
-});
+        const user = await User.findById(req.params.id);
+        const posts = user.posts
 
-//GET All posts
-router.get('/', async (req, res) => {
-    try {
-        const posts = await Post.find();
         return res.send(posts);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -23,20 +17,17 @@ router.get('/', async (req, res) => {
 });
 
 //Post a post
-router.post('/', async (req, res) => {
+router.post('/', [auth], async (req, res) => {
     try {
-        const { error } = validatePost(req.body);
-        if (error)
-            return res.status(400).send(error);
+        const user = await User.findById(req.user._id);
 
-        const post = new Post({
-            userId: req.body.userId,
-            text: req.body.text
-        });
+        const post = new Post(req.body);
 
-        await post.save();
+        user.posts.push(post);
 
-        return res.send(post);
+        await user.save();
+
+        return res.send(user);
 
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
@@ -44,7 +35,7 @@ router.post('/', async (req, res) => {
 });
 
 //Delete a post
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', [auth], async (req, res) => {
     try {
 
         const post = await Post.findByIdAndRemove(req.params.id);

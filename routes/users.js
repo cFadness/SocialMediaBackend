@@ -96,10 +96,10 @@ router.delete("/:userId", [auth, admin], async (req, res) => {
   }
 });
 
-//* Create/Change User Profile
-router.put('/:userId', async (req, res) => {
+//* Change User Profile
+router.put('/', [auth], async (req, res) => {
   try {
-      const user = await User.findByIdAndUpdate(req.params.userId, 
+      const user = await User.findByIdAndUpdate(req.user._id, 
         {
           ...req.body
         },
@@ -107,10 +107,62 @@ router.put('/:userId', async (req, res) => {
           );
 
           if (!user)
-              return res.status(400).send(`The userId "${req.params.userId}"
+              return res.status(400).send(`The userId "${req.user._id}"
               does not exist.`);
+        
+          await user.save();
 
           return res.send(user);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//* Send friend request INCOMPLETE
+router.put('/', [auth], async (req, res) => {
+  try {
+      const user = await User.findByIdAndUpdate(req.user._id, 
+        {
+          ...req.body
+        },
+          { new: true }
+          );
+
+          if (!user)
+              return res.status(400).send(`The userId "${req.user._id}"
+              does not exist.`);
+        
+          await user.save();
+
+          return res.send(user);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+// Get friends list
+router.get('/friends', [auth], async (req, res) => {
+  try {
+      const user = await User.findById(req.user._id);
+
+      const friendsList = user.friends
+
+      return res.send(friendsList);
+
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+// Get list of friends requests
+router.get('/inbox', [auth], async (req, res) => {
+  try {
+      const user = await User.findById(req.user._id);
+
+      const inbox = user.inbox
+
+      return res.send(inbox);
+
   } catch (ex) {
       return res.status(500).send(`Internal Server Error: ${ex}`);
   }

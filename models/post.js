@@ -3,21 +3,12 @@ const Joi = require('joi');
 
 const postSchema = new mongoose.Schema(
     {
-        userId: {type: String, required: true},
         text: { type: String, required: true},
         likes: { type: Number, default: 0 },
         dislikes: { type: Number, default: 0 },
         dateCreated: { type: Date, default: Date()}
     }
 )
-
-function validatePost(post) {
-    const schema = Joi.object({
-        userId: Joi.string().required(),
-        text: Joi.string().required()
-    });
-    return schema.validate(post);
-}
 
 function validateLike(post) {
     const schema = Joi.object({
@@ -30,5 +21,4 @@ const Post = mongoose.model('Post', postSchema);
 
 exports.Post = Post;
 exports.validateLike = validateLike;
-exports.validatePost = validatePost;
 exports.postSchema = postSchema;
