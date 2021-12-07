@@ -24,10 +24,11 @@ router.post("/register", async (req, res) => {
       posts: req.body.posts,
       about: req.body.about,
       friends: req.body.friends,
+      inbox: req.body.inbox,
       photos: req.body.photos,
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, salt),
-      isAdmin: req.body.isAdmin,
+      isAdmin: req.body.isAdmin
     });
 
     await user.save();

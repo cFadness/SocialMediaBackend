@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "1d5ba0f8-4d45-4057-b090-c91d4d206b83",
-		"name": "Social Media Starter",
+		"_postman_id": "240ee703-b3bc-4e09-831a-ae2e647fb15c",
+		"name": "Social Media User requests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"JJ Vega\",\n    \"email\": \"jjvega@devcodecamp.com\",\n    \"password\": \"BillyBobWins\",\n    \"isAdmin\": true\n}",
+					"raw": "{\n    \"firstName\": \"Homeboy\",\n    \"lastName\": \"Fresh\",\n    \"email\": \"whatsup@hotmail.com\",\n    \"password\": \"superGoodPassword\",\n    \"isAdmin\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"jjvega@devcodecamp.com\",\n    \"password\": \"BillyBobWins\"\n}",
+					"raw": "{\n    \"email\": \"whatsup@hotmail.com\",\n    \"password\": \"superGoodPassword\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,12 +92,12 @@
 				"header": [
 					{
 						"key": "x-auth-token",
-						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWE3YzIyNTI3NDk3NDVhYzNjODc1OTkiLCJuYW1lIjoiRGF2aWQgTGFHcmFuZ2UiLCJlbWFpbCI6ImRhdmlkQGRldmNvZGVjYW1wLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODM4NjI5M30.5MF1ulI8NtQTtJNfUeXKUKm7Z1S5BNu__lAIBX2zvTU",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFhODUxNTgyZDIwZDYyNDA1YjU5MDUiLCJuYW1lIjoiSG9tZWJveSBGcmVzaCIsImVtYWlsIjoid2hhdHN1cEBob3RtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODU2NTMwN30.YRMhXqzW5WHiX-6X580FMW8xEzQPMJ7fCxDRyXSFktM",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://localhost:3000/api/users/61a7c0032749745ac3c87598",
+					"raw": "http://localhost:3000/api/users/61aa851582d20d62405b5905",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -106,7 +106,37 @@
 					"path": [
 						"api",
 						"users",
-						"61a7c0032749745ac3c87598"
+						"61aa851582d20d62405b5905"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE user profile",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"about\": \"I'm a pretty cool dude.\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/61afbc8544c1815264efdd23",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"61afbc8544c1815264efdd23"
 					]
 				}
 			},

@@ -10,6 +10,7 @@ const userSchema = mongoose.Schema({
   posts: {type: [postSchema], default: [] },
   about: { type: String, default: "" },
   friends: { type: Array, default: [] },
+  inbox: { type: Array, default: [] },
   photos: { type: Array, default: [] },
   email: {
     type: String,
