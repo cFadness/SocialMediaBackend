@@ -19,7 +19,12 @@ router.post("/register", async (req, res) => {
 
     const salt = await bcrypt.genSalt(10);
     user = new User({
-      name: req.body.name,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      posts: req.body.posts,
+      about: req.body.about,
+      friends: req.body.friends,
+      photos: req.body.photos,
       email: req.body.email,
       password: await bcrypt.hash(req.body.password, salt),
       isAdmin: req.body.isAdmin,
@@ -32,7 +37,8 @@ router.post("/register", async (req, res) => {
       .header("access-control-expose-headers", "x-auth-token")
       .send({
         _id: user._id,
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
         isAdmin: user.isAdmin,
       });
@@ -86,6 +92,34 @@ router.delete("/:userId", [auth, admin], async (req, res) => {
     return res.send(user);
   } catch (ex) {
     return res.status(500).send(`Internal Server Error: ${ex}`);
+  }
+});
+
+//* Create/Change User Profile
+router.put('/:userId', async (req, res) => {
+  try {
+      const {error} = validate(req.body);
+      if (error) return res.status(400).send(error);
+
+      const user = await User.findByIdAndUpdate(req.params.userId, 
+          {
+              about: req.body.about,
+              photos: req.body.photos,
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+          },
+          { new: true }
+          );
+
+          if (!user)
+              return res.status(400).send(`The post with userId "${req.params.userId}"
+              does not exist.`);
+
+          await user.save();
+
+          return res.send(user);
+  } catch (ex) {
+      return res.status(500).send(`Internal Server Error: ${ex}`);
   }
 });
 
