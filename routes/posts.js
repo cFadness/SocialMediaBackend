@@ -43,28 +43,21 @@ router.post('/', async (req, res) => {
     }
 });
 
-// //POST Replies Endpoint
-// router.post('/:id/replies', async (req, res) => {
-//     try {
-//         const comment = await Comment.findById(req.params.id);
+//Delete a post
+router.delete('/:id', async (req, res) => {
+    try {
 
-//         const { error } = validateReply(req.body);
-//         if (error)
-//             return res.status(400).send(error);
-            
-//         const reply = new Reply({
-//             text: req.body.text
-//         });
+        const post = await Post.findByIdAndRemove(req.params.id);
 
-//         comment.replies.push(reply);
+        if (!post)
+            return res.status(400).send(`The post with id "${req.params.id}" does
+            not exist.`);
 
-//         await comment.save();
+        return res.send(post);
 
-//         return res.send(comment.replies);
-
-//     } catch (ex) {
-//         return res.status(500).send(`Internal Server Error: ${ex}`);
-//     }
-// });
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
 
 module.exports = router;
