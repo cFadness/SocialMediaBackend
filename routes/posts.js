@@ -1,4 +1,4 @@
-const { Post, validatePost } = require('../models/post');
+const { Post, validatePost, validateLike } = require('../models/post');
 const express = require('express');
 const router = express.Router();
 
@@ -55,6 +55,31 @@ router.delete('/:id', async (req, res) => {
 
         return res.send(post);
 
+    } catch (ex) {
+        return res.status(500).send(`Internal Server Error: ${ex}`);
+    }
+});
+
+//Like a post
+router.put('/:id', async (req, res) => {
+    try {
+        const {error} = validateLike(req.body);
+        if (error) return res.status(400).send(error);
+
+        const post = await Post.findByIdAndUpdate(req.params.id, 
+            {
+                likes: req.body.likes
+            },
+            { new: true }
+            );
+
+            if (!post)
+                return res.status(400).send(`The post with id "${req.params.id}"
+                does not exist.`);
+
+            await post.save();
+
+            return res.send(post);
     } catch (ex) {
         return res.status(500).send(`Internal Server Error: ${ex}`);
     }

@@ -19,8 +19,16 @@ function validatePost(post) {
     return schema.validate(post);
 }
 
+function validateLike(post) {
+    const schema = Joi.object({
+        likes: Joi.number().required()
+    });
+    return schema.validate(post);
+}
+
 const Post = mongoose.model('Post', postSchema);
 
 exports.Post = Post;
+exports.validateLike = validateLike;
 exports.validatePost = validatePost;
 exports.postSchema = postSchema;
