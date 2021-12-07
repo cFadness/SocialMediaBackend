@@ -1,4 +1,4 @@
-const { User, validateLogin, validateUser } = require("../models/user");
+const { User, validateLogin, validateUser, validateProfile } = require("../models/user");
 
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
@@ -98,6 +98,9 @@ router.delete("/:userId", [auth, admin], async (req, res) => {
 //* Create/Change User Profile
 router.put('/:userId', async (req, res) => {
   try {
+      const {error} = validateProfile(req.body);
+      if (error) return res.status(400).send(error);
+
       const user = await User.findByIdAndUpdate(req.params.userId, 
           {
               about: req.body.about,

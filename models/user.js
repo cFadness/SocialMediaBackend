@@ -52,10 +52,21 @@ const validateLogin = (req) => {
     password: Joi.string().min(5).max(1024).required(),
   });
   return schema.validate(req);
-};;
+};
+
+const validateProfile = (user) => {
+  const schema = Joi.object({
+    firstName: Joi.string().min(1).max(50),
+    lastName: Joi.string().min(1).max(50),
+    about: Joi.string().min(1).max(450),
+    photos: Joi.array(),
+  });
+  return schema.validate(user);
+};
 
 const User = mongoose.model("User", userSchema);
 module.exports.User = User;
 module.exports.userSchema = userSchema;
 module.exports.validateUser = validateUser;
 module.exports.validateLogin = validateLogin;
+module.exports.validateProfile = validateProfile;
