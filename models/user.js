@@ -52,7 +52,7 @@ const validateLogin = (req) => {
     password: Joi.string().min(5).max(1024).required(),
   });
   return schema.validate(req);
-};
+};;
 
 const User = mongoose.model("User", userSchema);
 module.exports.User = User;
