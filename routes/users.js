@@ -122,8 +122,8 @@ router.put('/', [auth], async (req, res) => {
 router.put('/:id', [auth], async (req, res) => {
   try {
       const user = await User.findByIdAndUpdate(req.params.id)
-       
-      const friendRequest = (req.body)
+      const userTwo = await User.findById(req.user._id)
+      const friendRequest = (userTwo)
       user.inbox.push(friendRequest)
 
           if (!user)

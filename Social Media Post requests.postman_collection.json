@@ -9,10 +9,16 @@
 			"name": "POST a post",
 			"request": {
 				"method": "POST",
-				"header": [],
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFmYmM4NTQ0YzE4MTUyNjRlZmRkMjMiLCJmaXJzdE5hbWUiOiJZYXJkYm95IiwibGFzdE5hbWUiOiJGcmVzaCIsImVtYWlsIjoid2hhdHN1cEBob3RtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODkxMjY5MX0.9EVtFYJFYYMKzIxc29SXVPRLgzrERNve8SKAje_kFWs",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"userId\": \"61aa851582d20d62405b5905\",\r\n    \"text\": \"What up dood?\"\r\n}",
+					"raw": "{\r\n    \"text\": \"Hello\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -35,32 +41,19 @@
 			"response": []
 		},
 		{
-			"name": "GET all posts",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:3000/api/posts",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"api",
-						"posts"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "GET posts from user",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
 				"url": {
-					"raw": "http://localhost:3000/api/posts/61aa851582d20d62405b5905",
+					"raw": "http://localhost:3000/api/posts/61afbc8544c1815264efdd23",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -69,7 +62,7 @@
 					"path": [
 						"api",
 						"posts",
-						"61aa851582d20d62405b5905"
+						"61afbc8544c1815264efdd23"
 					]
 				}
 			},

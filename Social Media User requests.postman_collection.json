@@ -42,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\": \"whatsup@hotmail.com\",\n    \"password\": \"superGoodPassword\"\n}",
+					"raw": "{\n    \"email\": \"familyguy@gmail.com\",\n    \"password\": \"megsucks\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -116,10 +116,16 @@
 			"name": "UPDATE user profile",
 			"request": {
 				"method": "PUT",
-				"header": [],
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFmYzQwMmU2Mzg3YTYzMzg5YjliNDkiLCJmaXJzdE5hbWUiOiJQZXRlciIsImxhc3ROYW1lIjoiR3JpZmZpbiIsImVtYWlsIjoiZmFtaWx5Z3V5QGdtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODk4NTEwNn0.bQrL7M99Zdi6JFGbGn6I509a4KOH8kA11IScdEQcCo4",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"about\": \"I'm a pretty cool dude.\"\r\n}",
+					"raw": "{\r\n    \"inbox\": []\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -127,7 +133,33 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/users/61afbc8544c1815264efdd23",
+					"raw": "http://localhost:3000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET friends list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFmYmM4NTQ0YzE4MTUyNjRlZmRkMjMiLCJmaXJzdE5hbWUiOiJZYXJkYm95IiwibGFzdE5hbWUiOiJGcmVzaCIsImVtYWlsIjoid2hhdHN1cEBob3RtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODkxNzM5N30.XA8G-YrSziz04pKFccglbdWrXkWyE3xsbsapGt-8GQg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/users/friends",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -136,7 +168,64 @@
 					"path": [
 						"api",
 						"users",
-						"61afbc8544c1815264efdd23"
+						"friends"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET friend requests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/users/inbox",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"inbox"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SEND friend request",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWFmYmM4NTQ0YzE4MTUyNjRlZmRkMjMiLCJmaXJzdE5hbWUiOiJZYXJkYm95IiwibGFzdE5hbWUiOiJGcmVzaCIsImVtYWlsIjoid2hhdHN1cEBob3RtYWlsLmNvbSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTYzODk4MDM5MH0.rWbbVKpKvdxTmxGL2o_Wa7JSjdIO3-otXI5LKj75D6U",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/users/61afc402e6387a63389b9b49",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"users",
+						"61afc402e6387a63389b9b49"
 					]
 				}
 			},
