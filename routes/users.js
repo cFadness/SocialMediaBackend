@@ -118,18 +118,16 @@ router.put('/', [auth], async (req, res) => {
   }
 });
 
-//* Send friend request INCOMPLETE
-router.put('/', [auth], async (req, res) => {
+//* Send friend request
+router.put('/:id', [auth], async (req, res) => {
   try {
-      const user = await User.findByIdAndUpdate(req.user._id, 
-        {
-          ...req.body
-        },
-          { new: true }
-          );
+      const user = await User.findByIdAndUpdate(req.params.id)
+       
+      const friendRequest = (req.body)
+      user.inbox.push(friendRequest)
 
           if (!user)
-              return res.status(400).send(`The userId "${req.user._id}"
+              return res.status(400).send(`The userId "${req.params.id}"
               does not exist.`);
         
           await user.save();
